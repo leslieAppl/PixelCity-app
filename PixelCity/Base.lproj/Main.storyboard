@@ -17,12 +17,75 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8e7-1h-6fQ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mDK-GN-vlN">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double-tap to drop a pin and view photos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qon-jo-Gdm">
+                                        <rect key="frame" x="36.5" y="24" width="302" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="ABj-Ln-SjB"/>
+                                            <constraint firstAttribute="width" constant="302" id="c8h-wX-BiE"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="qon-jo-Gdm" firstAttribute="centerX" secondItem="mDK-GN-vlN" secondAttribute="centerX" id="ezt-lA-zLi"/>
+                                    <constraint firstAttribute="height" constant="70" id="ii5-rr-bO6"/>
+                                    <constraint firstItem="qon-jo-Gdm" firstAttribute="centerY" secondItem="mDK-GN-vlN" secondAttribute="centerY" id="xqm-kg-cpj"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Awz-J6-0fS">
+                                <rect key="frame" x="305" y="597" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="0OM-Cc-UVY"/>
+                                    <constraint firstAttribute="height" constant="50" id="nA6-GX-jAO"/>
+                                </constraints>
+                                <state key="normal" image="locationButton"/>
+                                <connections>
+                                    <action selector="centerMapBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eEf-Va-5jh"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAw-lt-57D">
+                                <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="dAw-lt-57D" secondAttribute="bottom" id="0Yb-5Q-oxr"/>
+                            <constraint firstItem="8e7-1h-6fQ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="4uT-8Y-Ws5"/>
+                            <constraint firstItem="8e7-1h-6fQ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="9PO-sG-tLz"/>
+                            <constraint firstItem="8e7-1h-6fQ" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="Bnr-rb-pTL"/>
+                            <constraint firstItem="dAw-lt-57D" firstAttribute="top" secondItem="8e7-1h-6fQ" secondAttribute="bottom" id="Ejb-tt-QMf"/>
+                            <constraint firstItem="mDK-GN-vlN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TcH-j2-qRZ"/>
+                            <constraint firstItem="dAw-lt-57D" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="c31-7m-FHJ"/>
+                            <constraint firstItem="mDK-GN-vlN" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="e45-7l-mH8"/>
+                            <constraint firstItem="mDK-GN-vlN" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="fpt-ZS-MAD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Awz-J6-0fS" secondAttribute="bottom" constant="20" id="hNg-Dh-orY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Awz-J6-0fS" secondAttribute="trailing" constant="20" id="kI0-2u-aDd"/>
+                            <constraint firstItem="8e7-1h-6fQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qd3-7U-Ix3"/>
+                            <constraint firstAttribute="trailing" secondItem="dAw-lt-57D" secondAttribute="trailing" id="xUs-wl-kSg"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="8e7-1h-6fQ" id="Lsw-5G-9gg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-114.40000000000001" y="-8.5457271364317844"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="locationButton" width="67" height="67"/>
+    </resources>
 </document>

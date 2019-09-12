@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -46,7 +46,6 @@
 				F0C38B0A10EC33A6016688D8 /* Pods-PixelCity.debug.xcconfig */,
 				A31E04B815F9AECBCC45F7A1 /* Pods-PixelCity.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
