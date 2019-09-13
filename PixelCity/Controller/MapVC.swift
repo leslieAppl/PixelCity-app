@@ -46,11 +46,22 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
 
 extension MapVC: MKMapViewDelegate {
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        let pinAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "droppablePin")
+        pinAnnotation.pinTintColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+        pinAnnotation.animatesDrop = true
+        return pinAnnotation
+    }
+    
     func centerMapOnUserLocation() {
         guard let coordinate = locationManager.location?.coordinate else {
             return
         }
-        
+        print("user location on locationManager: \(coordinate.latitude) \(coordinate.longitude)")
         let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: regionDistance * 2.0, longitudinalMeters: regionDistance * 8.0)
         mapView.setRegion(coordinateRegion, animated: true)
     }
@@ -59,13 +70,14 @@ extension MapVC: MKMapViewDelegate {
         removePin()
         
         let touchPoint = sender.location(in: mapView)
-        print(touchPoint)
+        print("location on the mapView: \(touchPoint)")
         let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         
         let annotation = DroppablePin(coordinate: touchCoordinate, identifier: "droppablePin")
         mapView.addAnnotation(annotation)
         
         let coordiateRegion = MKCoordinateRegion(center: touchCoordinate, latitudinalMeters: regionDistance * 2, longitudinalMeters: regionDistance * 8)
+        print("dropPin location on MKCoordinateRegion: \(coordiateRegion.center)")
         mapView.setRegion(coordiateRegion, animated: true)
     }
     
