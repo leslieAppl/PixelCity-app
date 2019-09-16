@@ -32,6 +32,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     var collectionView: UICollectionView?
     
     var imageUrlArray = [String]()
+    var imageArray = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +71,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func animateViewDown() {
+        cancelAllSessions()
         pullUpViewHeightConstraint.constant = 0
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
@@ -141,6 +143,7 @@ extension MapVC: MKMapViewDelegate {
         removePin()
         removeSpinner()
         removeProgressLbl()
+        cancelAllSessions()
         
         animateViewUp()
         addSwipe()
@@ -161,8 +164,16 @@ extension MapVC: MKMapViewDelegate {
         print("dropPin location on MKCoordinateRegion: \(coordiateRegion.center)")
         mapView.setRegion(coordiateRegion, animated: true)
         
-        retrieveUrls(forAnnotation: annotation) { (success) in
-            print(self.imageUrlArray)
+        retrieveUrls(forAnnotation: annotation) { (finished) in
+            if finished {
+                self.retrieveImages(handler: { (finished) in
+                    if finished {
+                        self.removeSpinner()
+                        self.removeProgressLbl()
+                        // relaod collection view
+                    }
+                })
+            }
         }
     }
     
@@ -196,6 +207,30 @@ extension MapVC: MKMapViewDelegate {
             }
             
             handler(true)
+        }
+    }
+    
+    // @escaping: the value could escape from the closure
+    func retrieveImages(handler: @escaping (_ status: Bool) -> () ) {
+        imageArray = []
+        
+        for url in imageUrlArray {
+            Alamofire.request(url).responseImage { (response) in
+                guard let image = response.result.value else {return}
+                self.imageArray.append(image)
+                self.progressLab?.text = "\(self.imageArray.count)/40 images downloaded"
+                
+                if self.imageArray.count == self.imageUrlArray.count {
+                    handler(true)
+                }
+            }
+        }
+    }
+    
+    func cancelAllSessions() {
+        Alamofire.SessionManager.default.session.getTasksWithCompletionHandler { (sessionDataTask, uploadData, downloadData) in
+            sessionDataTask.forEach({ $0.cancel() })
+            downloadData.forEach({ $0.cancel()})
         }
     }
 }
