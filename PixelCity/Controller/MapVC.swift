@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Alamofire
+import AlamofireImage
 
 class MapVC: UIViewController, UIGestureRecognizerDelegate {
 
@@ -28,6 +30,8 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     
     var flowLayout = UICollectionViewFlowLayout()
     var collectionView: UICollectionView?
+    
+    var imageUrlArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,11 +160,42 @@ extension MapVC: MKMapViewDelegate {
         let coordiateRegion = MKCoordinateRegion(center: touchCoordinate, latitudinalMeters: regionDistance * 2, longitudinalMeters: regionDistance * 8)
         print("dropPin location on MKCoordinateRegion: \(coordiateRegion.center)")
         mapView.setRegion(coordiateRegion, animated: true)
+        
+        retrieveUrls(forAnnotation: annotation) { (success) in
+            print(self.imageUrlArray)
+        }
     }
     
     func removePin() {
         for annotation in mapView.annotations {
             mapView.removeAnnotation(annotation)
+        }
+    }
+    
+    func retrieveUrls(forAnnotation annotation: DroppablePin, handler: @escaping (_ status: Bool) -> ()) {
+        imageUrlArray = []
+        
+        // Use the search&api request url to get the response json to parse it into the photo request url
+        Alamofire.request(flickrUrl(forApiKey: API_KEY, withAnnotation: annotation, andNumberOfPhotos: 40)).responseJSON { (response) in
+            print(response)
+            
+            guard let json = response.result.value as? Dictionary<String, AnyObject> else { return }
+            let photosDict = json["photos"] as! Dictionary<String, AnyObject>
+            let photosDictArray = photosDict["photo"] as! [Dictionary<String, AnyObject>]
+            for photo in photosDictArray {
+                // Check the jpg download url.
+                // Note: May be there is not allowed to download some of the sizes by api.
+                // Square(150*150) https://live.staticflickr.com/65535/48737643628_3c7a906543_q_d.jpg
+                // Small(240*180) https://live.staticflickr.com/65535/48737643628_3c7a906543_m_d.jpg
+                // Medium(640*480) https://live.staticflickr.com/65535/48737643628_3c7a906543_z_d.jpg
+                // Large(2048*1536) https://live.staticflickr.com/65535/48737643628_3c7a906543_k_d.jpg
+                // Original(4000*3000) https://live.staticflickr.com/65535/48737643628_3c7a906543_d_0_d.jpg
+                // View all sizes https://www.flickr.com/photos/100573330@N03/48737643628/sizes/l
+                let postUrl = "https://live.staticflickr.com/\(photo["server"]!)/\(photo["id"]!)_\(photo["secret"]!)_z_d.jpg"
+                self.imageUrlArray.append(postUrl)
+            }
+            
+            handler(true)
         }
     }
 }
