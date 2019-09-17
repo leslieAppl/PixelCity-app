@@ -24,7 +24,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mDK-GN-vlN">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double-tap to drop a pin and view photos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qon-jo-Gdm">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Triple-tap to drop a pin and view photos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qon-jo-Gdm">
                                         <rect key="frame" x="36.5" y="24" width="302" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="ABj-Ln-SjB"/>
@@ -87,6 +87,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-114.40000000000001" y="-8.5457271364317844"/>
+        </scene>
+        <!--PopVC-->
+        <scene sceneID="0ry-Fj-Qff">
+            <objects>
+                <viewController storyboardIdentifier="PopVC" id="hvO-Eo-SGv" customClass="PopVC" customModule="PixelCity" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="svz-e6-ht2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jPj-7N-ET5">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qjn-X1-bvC">
+                                <rect key="frame" x="87.5" y="622" width="200" height="25"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double-tap to dismiss" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FXZ-hO-HeV">
+                                        <rect key="frame" x="16" y="2" width="168" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="aZm-rO-RgP"/>
+                                    <constraint firstItem="FXZ-hO-HeV" firstAttribute="centerY" secondItem="qjn-X1-bvC" secondAttribute="centerY" id="aqN-pj-1gk"/>
+                                    <constraint firstItem="FXZ-hO-HeV" firstAttribute="centerX" secondItem="qjn-X1-bvC" secondAttribute="centerX" id="iMd-gc-f3q"/>
+                                    <constraint firstAttribute="width" constant="200" id="o2E-1i-r3E"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="iEj-Db-1ih" firstAttribute="bottom" secondItem="qjn-X1-bvC" secondAttribute="bottom" constant="20" id="W4r-9J-Eak"/>
+                            <constraint firstItem="jPj-7N-ET5" firstAttribute="top" secondItem="svz-e6-ht2" secondAttribute="top" id="YfQ-CT-WOq"/>
+                            <constraint firstItem="jPj-7N-ET5" firstAttribute="trailing" secondItem="iEj-Db-1ih" secondAttribute="trailing" id="iux-wN-7wS"/>
+                            <constraint firstItem="qjn-X1-bvC" firstAttribute="centerX" secondItem="svz-e6-ht2" secondAttribute="centerX" id="leg-Bw-sfE"/>
+                            <constraint firstItem="jPj-7N-ET5" firstAttribute="leading" secondItem="iEj-Db-1ih" secondAttribute="leading" id="nKG-gM-cge"/>
+                            <constraint firstItem="jPj-7N-ET5" firstAttribute="bottom" secondItem="iEj-Db-1ih" secondAttribute="bottom" id="nXe-SY-g6I"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="iEj-Db-1ih"/>
+                    </view>
+                    <connections>
+                        <outlet property="popImageView" destination="jPj-7N-ET5" id="dNF-N9-voh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QTd-Rk-9nO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="693.60000000000002" y="-9.4452773613193415"/>
         </scene>
     </scenes>
     <resources>
