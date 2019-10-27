@@ -1,7 +1,8 @@
 # PixelCity-app
 Mastering Maps in iOS12
+- From: Udemy iOS 12 & Swift 4: From Beginner to Paid Professional
+- Section 12
 
-Mastering Maps in iOS12
 
 Drag images on the map all over the world with Flickr API
 
